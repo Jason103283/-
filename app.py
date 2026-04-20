@@ -97,13 +97,13 @@ def main():
             st.rerun()
 
     # 初始化數據
+        # 找到這一段並修正：
     if 'quiz_data' not in st.session_state:
-        display, q_list = solve_order_issue_parser(raw_text, p_on, r_on, s_on, rate) # 注意這裡調用之前的 parser
-        # 修正：呼叫剛剛定義的 advanced_parser
-        display, q_list = advanced_parser(raw_text, p_on, r_on, s_on, rate)
+        # 將原本的 solve_order_issue_parser 改成 advanced_parser
+        display, q_list = advanced_parser(raw_text, p_on, r_on, s_on, rate) 
         st.session_state.quiz_data = {"display": display, "q_list": q_list, "title": current_title}
 
-    data = st.session_state.quiz_data
+            data = st.session_state.quiz_data
 
     # 顯示區
     st.info(f"### 📖 當前練習：{data['title']}")
