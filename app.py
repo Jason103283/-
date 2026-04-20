@@ -103,7 +103,7 @@ def main():
         display, q_list = advanced_parser(raw_text, p_on, r_on, s_on, rate) 
         st.session_state.quiz_data = {"display": display, "q_list": q_list, "title": current_title}
 
-            data = st.session_state.quiz_data
+        data = st.session_state.quiz_data
 
     # 顯示區
     st.info(f"### 📖 當前練習：{data['title']}")
