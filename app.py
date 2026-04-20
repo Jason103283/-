@@ -47,7 +47,7 @@ def main():
     st.set_page_config(page_title="日文全方位練習器", layout="centered")
     st.title("🇯🇵 日文巢狀練習工具")
 
-    raw_text = "<<そこで{{友達|ともだち}}[[と]]勉強をします。>> 私は[[每天]]圖書館[[に]]行きます。"
+    raw_text = "<<そこで{{友達|ともだち}}[[と]]勉強をします。>> 私は[[每天]]{{圖書館|としょかん}}[[に]]行きます。"
 
     with st.sidebar:
         st.header("🛠 練習設定")
