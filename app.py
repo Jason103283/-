@@ -98,17 +98,39 @@ def main():
 
     # 初始化數據
         # 找到這一段並修正：
+        # --- 關鍵修正區：初始化數據 ---
+    
+    # 1. 先確認當前的標題 (這要在 if 之外，確保 current_title 永遠存在)
+    if uploaded_file is not None:
+        current_title = "上傳的練習"
+        raw_text = uploaded_file.read().decode("utf-8")
+    elif local_lessons:
+        # selected_lesson 是 sidebar 裡的選單
+        raw_text = local_lessons[selected_lesson]
+        current_title = selected_lesson
+    else:
+        raw_text = "[[私]]は{{毎日|まいにち}}[[に]]圖書館[[で]]勉強[[を]]します。"
+        current_title = "範例練習"
+
+    # 2. 如果 session_state 沒東西，或者題目需要更新
     if 'quiz_data' not in st.session_state:
-        # 將原本的 solve_order_issue_parser 改成 advanced_parser
-        display, q_list = advanced_parser(raw_text, p_on, r_on, s_on, rate) 
-        st.session_state.quiz_data = {"display": display, "q_list": q_list, "title": current_title}
+        # 產生新題目
+        display, q_list = advanced_parser(raw_text, p_on, r_on, s_on, rate)
+        # 存入 session_state
+        st.session_state.quiz_data = {
+            "display": display, 
+            "q_list": q_list, 
+            "title": current_title
+        }
 
-        data = st.session_state.quiz_data
+    # 3. 【核心修正】不管 if 有沒有跑，最後都從 session_state 把資料拿出來
+    # 這樣 data 就絕對不會是「未定義」的狀態
+    data = st.session_state.quiz_data
 
-    # 顯示區
+    # --- 顯示區 (這裡就不會報錯了) ---
     st.info(f"### 📖 當前練習：{data['title']}")
     st.markdown(data["display"])
-    st.divider()
+
 
     # 互動填空
     if data["q_list"]:
